@@ -1,0 +1,40 @@
+@import "../../styles/global";
+
+
+.layer {
+  position: absolute;
+  inset:  0;
+
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  background: $gray-600;
+
+  max-width: 40%;
+  width: 100%;
+  padding: 16px;
+  border-radius: 6px;
+
+  header{
+    width: 100%;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+}

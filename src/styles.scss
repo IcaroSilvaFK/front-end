@@ -1,1 +1,83 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./app/styles/global";
+
+:root {
+  --mat-form-field-error-text-color: $danger !important;
+}
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+
+html,
+body {
+  font-size: 1rem;
+  min-height: 100dvh;
+  min-width: 100dvw;
+  height: 100%;
+  width: 100%;
+  background-color: $gray-700;
+  color: $gray-100;
+}
+
+html,h1,h2,h3,p,span,strong,label,caption, input, button {
+  font-family: $fontFamily;
+  -webkit-font-smoothing: antialiased;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control{
+  height: 100% !important;
+  padding: 8px;
+}
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+button {
+  cursor: pointer;
+}
+
+button,input {
+  border: none;
+}
+
+ul,ol {
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
+
+.mat-mdc-form-field-error {
+  color: $danger !important;
+  font-size: 0.75rem !important;
+  margin-top: 4px !important;
+}
+
+.primary {
+  background-color: $blue !important;
+  padding: 8px 12px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: 4px !important;
+  color: $gray-100 !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+}

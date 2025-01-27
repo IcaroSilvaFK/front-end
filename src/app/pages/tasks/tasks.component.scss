@@ -1,0 +1,102 @@
+@import "../../styles/global";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  h2 {
+    color: $blue;
+    span {
+      color: $purple;
+    }
+  }
+
+  padding: 42px 0;
+  background: $gray-700;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  width: 100%;
+  background: $gray-600;
+  >div{
+    max-width: 60%;
+    width: 100%;
+   >form {
+      width: 100%;
+      margin-top: -30px;
+      display: flex;
+      gap: 6px;
+
+      input {
+        flex:1;
+        height: 54px;
+        padding: 6px;
+
+        border-radius: 8px;
+        background: $gray-500;
+        border: 1px solid $gray-700;
+        color: $gray-100;
+        font-size: 1.125rem;
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px $blue;
+        }
+      }
+
+      > button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        background: $blue-dark;
+        color: $gray-100;
+        font-size: 1.125rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.header__counter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.badge {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+
+  >span:first-child {
+    color: $blue;
+    font-weight: bold;
+  }
+
+  >span:last-child {
+    padding: 4px 8px;
+    background: $gray-400;
+    border-radius: 50%;
+    font-weight: bold;
+  }
+}
+.badge--purple {
+  >span:first-child {
+    color: $purple;
+  }
+
+}

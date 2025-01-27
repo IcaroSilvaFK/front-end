@@ -1,0 +1,41 @@
+<div class="container">
+  <main>
+    <header>
+      <h2>
+        Daylie Tasks
+      </h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, voluptates ipsam ipsum voluptatibus atque
+        pariatur consectetur id. Similique quaerat nostrum voluptates quasi eveniet nisi, alias, ipsum, deserunt velit
+        enim soluta.
+      </p>
+    </header>
+    <span>Login</span>
+    <form (ngSubmit)="onSubmit()" id="login__form">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input [formControl]="email" matInput placeholder="Email" required>
+        <mat-icon matSuffix>email</mat-icon>
+        @if (email.invalid) {
+        <mat-error>{{errorMessage()}}</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput [formControl]="password" [type]="hide() ? 'password' : 'text'" />
+        <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-pressed]="hide()">
+          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+    <footer>
+      <button mat-flat-button class="primary" form="login__form">Basic</button>
+      <div>
+        <mat-divider></mat-divider>
+        <span>ou</span>
+        <mat-divider></mat-divider>
+      </div>
+      <a mat-button routerLink="/register" ariaCurrentWhenActive="page">Criar conta</a>
+    </footer>
+  </main>
+</div>

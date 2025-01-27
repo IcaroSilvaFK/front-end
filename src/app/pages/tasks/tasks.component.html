@@ -1,0 +1,28 @@
+<main>
+  <header class="header">
+    <img src="/assets/images/rocket.png" />
+    <h2>Daylie <span>Tasks</span></h2>
+  </header>
+
+  <div>
+    <form action="">
+      <input type="text" placeholder="Adicione uma nova tarefa" [(ngModel)]="titleTask" />
+      <button>
+        Criar
+        <mat-icon>add</mat-icon>
+      </button>
+    </form>
+
+    <div class="header__counter">
+      <div class="badge">
+        <span>Tarefas criadas</span>
+        <span>0</span>
+      </div>
+      <div class="badge badge--purple">
+        <span>Concluídas</span>
+        <span>0</span>
+      </div>
+    </div>
+  </div>
+</main>
+<app-modal-new-task></app-modal-new-task>

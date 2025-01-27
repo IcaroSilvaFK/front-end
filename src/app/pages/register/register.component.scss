@@ -1,0 +1,87 @@
+@import "../../styles/global";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.container {
+  height: 100dvh;
+  width: 100dvw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    width: 80%;
+    max-width: 450px;
+    height: 80%;
+    border-radius: 4px;
+    background: $gray-600;
+    padding: 18px;
+    header {
+      width: 100%;
+      h2 {
+        font-size: 1.375rem;
+        color: $gray-100;
+        margin-bottom: 8px;
+      }
+      p {
+        font-size: 1rem;
+        color: $gray-300;
+        font-size: .875rem;
+      }
+    }
+
+    > span {
+      font-size: 1.125rem;
+      color: $gray-100;
+      text-align: left;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 16px;
+      gap: 12px;
+    }
+
+    footer {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      > div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .mat-divider {
+          width: 100%;
+          border-color: $gray-300;
+        }
+
+        > span {
+          color: $gray-300;
+          font-size: .875rem;
+        }
+      }
+
+      >span {
+        text-align: center;
+      }
+    }
+  }
+}
+.mat-mdc-form-field-infix  {
+  height: 48px !important;
+}

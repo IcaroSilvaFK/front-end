@@ -1,0 +1,32 @@
+<div class="layer">
+  <div class="content">
+    <header>
+      <h2>Adicionar tarefa</h2>
+    </header>
+    <form action="">
+      <mat-form-field appearance="outline">
+        <mat-label>Titulo</mat-label>
+        <input matInput placeholder="Ex. Estudar Angular" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput placeholder="Ex. Estudar Angular"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          @for (item of status; track item) {
+          <mat-option [value]="item.value">{{item.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button class="primary">Salvar</button>
+    </form>
+  </div>
+</div>

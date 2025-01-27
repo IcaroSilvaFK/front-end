@@ -1,0 +1,49 @@
+<div class="container">
+  <main>
+    <header>
+      <h2>
+        Daylie Tasks
+      </h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, voluptates ipsam ipsum voluptatibus atque
+      </p>
+    </header>
+    <span>Cadastro</span>
+    <form [formGroup]="form" id="login__form" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input formControlName="username" matInput placeholder="Username" required>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="Email" required>
+        <mat-icon matSuffix>email</mat-icon>
+        @if (form.get('email')?.hasError('required')) {
+        <mat-error>Email é obrigatório</mat-error>
+        }
+        @if (form.get('email')?.hasError('email')) {
+        <mat-error>Email inválido</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" [type]="hide() ? 'password' : 'text'" />
+        <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-pressed]="hide()">
+          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+    <footer>
+      <button mat-flat-button class="primary" form="login__form" [disabled]="!form.valid">Criar Conta</button>
+      <div>
+        <mat-divider></mat-divider>
+        <span>ou</span>
+        <mat-divider></mat-divider>
+      </div>
+      <span>
+        Ja possui uma conta?<a mat-button routerLink="/" ariaCurrentWhenActive="page">Entrar</a>
+      </span>
+    </footer>
+  </main>
+</div>
