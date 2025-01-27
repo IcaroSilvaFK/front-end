@@ -29,6 +29,7 @@ interface Status {
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+
   ],
   templateUrl: './modal-new-task.component.html',
   styleUrl: './modal-new-task.component.scss'
