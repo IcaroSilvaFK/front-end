@@ -71,7 +71,7 @@ export class ModalNewTaskComponent implements OnChanges {
     if (changes['titleTask']) {
       this.form.controls['title'].setValue(this.titleTask)
     }
-    if (changes['task']) {
+    if (changes['task'].currentValue) {
       this.form.controls['title'].setValue(this.task?.title!)
       this.form.controls['description'].setValue(this.task?.description!)
       this.form.controls['endDate'].setValue(this.task?.endDate!)

@@ -108,8 +108,21 @@ a{
   font-weight: 600 !important;
 }
 
-// html, body { height: 100%; }
-// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.error {
+  background-color: $danger !important;
+  color: $gray-100 !important;
+}
+
+.warning {
+  background-color: $yellow-500 !important;
+  color: $gray-100 !important;
+}
+
+.success {
+  background-color: $green-500 !important;
+  color: $gray-100 !important;
+}
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -24,6 +24,9 @@
     border-radius: 4px;
     background: $gray-600;
     padding: 18px;
+    @media screen and (max-width: 600px) {
+      height: 85%;
+    }
     header {
       h2 {
         font-size: 1.375rem;

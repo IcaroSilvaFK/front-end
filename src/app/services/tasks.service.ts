@@ -8,6 +8,11 @@ export type TaskOutput = {
   status: string
   title: string
 }
+type GetAllTasksOutput = {
+  tasks: TaskOutput[],
+  quantityPages: number
+  totalTasks: number
+}
 
 type TaskInput = {
   title: string,
@@ -25,8 +30,16 @@ export class TasksService {
     private readonly httpService: HttpService
   ) { }
 
-  async getMeTasks(): Promise<TaskOutput[]> {
-    return await this.httpService.get('/tasks')
+  async getMeTasks(page?: number, type?: string): Promise<GetAllTasksOutput> {
+    return await this.httpService.get('/tasks', {
+      page: page || 1,
+      type: type || ""
+    })
+  }
+
+
+  async countDoneTasks(): Promise<{ count: number }> {
+    return await this.httpService.get('/tasks/done')
   }
 
   async createTask(task: TaskInput): Promise<TaskOutput> {

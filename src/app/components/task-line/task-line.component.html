@@ -12,10 +12,10 @@
     <p>{{ task.description }}</p>
   </div>
   <footer>
-    <button mat-icon-button (click)="onEditTask()">
+    <button mat-icon-button class="warning" (click)="onEditTask()">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button [disabled]="isLoadingDelete" (click)="onDeleteTask(task.id)">
+    <button mat-icon-button class="error" [disabled]="isLoadingDelete" (click)="onDeleteTask(task.id)">
       @if(!isLoadingDelete){
       <mat-icon>delete</mat-icon>
       }@else {
@@ -23,7 +23,8 @@
       }
     </button>
     @if(taskStatus === "inProgress") {
-    <button mat-icon-button matTooltip="Done" [matTooltipPosition]="'after'" (click)="updateStatus(task.id, 'done')">
+    <button mat-icon-button class="success" matTooltip="Done" [matTooltipPosition]="'after'"
+      (click)="updateStatus(task.id, 'done')">
       @if(!isLoadingEditStatus) {
       <mat-icon>done</mat-icon>
       }@else{
