@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from './config.service';
+import { HttpService } from './http.service';
 
 type UserInput = {
   email: string,

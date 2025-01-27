@@ -29,7 +29,14 @@
       </mat-form-field>
     </form>
     <footer>
-      <button mat-flat-button class="primary" form="login__form">Basic</button>
+      <button mat-flat-button class="primary" form="login__form"
+        [disabled]="isLoading || email.invalid || password.invalid">
+        @if(!isLoading){
+        Entrar
+        }@else {
+        <mat-spinner diameter="20"></mat-spinner>
+        }
+      </button>
       <div>
         <mat-divider></mat-divider>
         <span>ou</span>

@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LOCALSTORAGE_KEYS } from '../../common/constants';
@@ -16,19 +17,20 @@ import { UserState } from '../../store/user/user.reducer';
 
 
 @Component({
-    selector: 'app-register',
-    imports: [
-        MatButtonModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterLink,
-    ],
-    templateUrl: './register.component.html',
-    styleUrl: './register.component.scss'
+  selector: 'app-register',
+  imports: [
+    MatButtonModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    MatProgressSpinner
+  ],
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   readonly form = new FormGroup({
@@ -36,6 +38,7 @@ export class RegisterComponent {
     password: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
   });
+  isLoading = false
 
   constructor(
     private readonly userService: UserService,
@@ -54,7 +57,7 @@ export class RegisterComponent {
   }
   async onSubmit() {
     if (this.form.invalid) return
-
+    this.isLoading = true
     await this.userService.createUser({
       email: this.form.value.email || "",
       password: this.form.value.password || "",
@@ -64,7 +67,7 @@ export class RegisterComponent {
     const sigin = await this.authService.signIn({ email: this.form.value.email || "", password: this.form.value.password || "" })
     this.persistenceService.set(LOCALSTORAGE_KEYS.TOKEN, sigin.accessToken)
     this.store.dispatch(FILL_USER({ user: sigin.user }))
-
+    this.isLoading = false
     this.router.navigate(["/tasks"])
   }
 }

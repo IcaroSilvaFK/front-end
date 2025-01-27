@@ -11,7 +11,7 @@ type CustomParams = {
   providedIn: 'root'
 })
 export class HttpService {
-  private readonly baseUrl = 'http://localhost:8080/api';
+  private readonly baseUrl = import.meta.env.NG_APP_PUBLIC_BASE_API;
   constructor(private http: HttpClient) { }
 
   private sanitazeEndpoint(endpoint: string) {

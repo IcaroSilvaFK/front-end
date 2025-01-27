@@ -35,7 +35,13 @@
       </mat-form-field>
     </form>
     <footer>
-      <button mat-flat-button class="primary" form="login__form" [disabled]="!form.valid">Criar Conta</button>
+      <button mat-flat-button class="primary" form="login__form" [disabled]="!form.valid || isLoading">
+        @if(!isLoading){
+        Criar Conta
+        }@else {
+        <mat-spinner diameter="20"></mat-spinner>
+        }
+      </button>
       <div>
         <mat-divider></mat-divider>
         <span>ou</span>

@@ -4,11 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { Store } from '@ngrx/store';
 import { ModalNewTaskComponent } from '../../components/modal-new-task/modal-new-task.component';
 import { TaskLineComponent } from '../../components/task-line/task-line.component';
 import { TaskOutput, TasksService } from '../../services/tasks.service';
-import { UserState } from '../../store/user/user.reducer';
 
 @Component({
   selector: 'app-tasks',
@@ -39,17 +37,16 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private readonly tasksService: TasksService,
-    private readonly store: Store<{ user: UserState }>,
   ) { }
 
   async ngOnInit(): Promise<void> {
     this.isLoading = true
     const result = await this.tasksService.getMeTasks()
     const totalDoneTasks = await this.tasksService.countDoneTasks()
-    this.tasks = result.tasks || []
-    this.quantityPages = result.quantityPages
-    this.totalTasks = result.totalTasks
-    this.doneTasks = totalDoneTasks?.count
+    this.tasks = result?.tasks || []
+    this.quantityPages = result?.quantityPages
+    this.totalTasks = result?.totalTasks || 0
+    this.doneTasks = totalDoneTasks?.count || 0
     this.isLoading = false
   }
 
