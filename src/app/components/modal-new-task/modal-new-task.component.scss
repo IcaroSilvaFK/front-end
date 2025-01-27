@@ -1,5 +1,4 @@
-@import "../../styles/global";
-
+@use "../../styles/global" as *;
 
 .layer {
   position: absolute;
@@ -28,6 +27,15 @@
 
   header{
     width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h2{
+      font-size: 1.125rem;
+    }
   }
 
   form{
@@ -36,5 +44,16 @@
     align-items: center;
     gap: 12px;
     width: 100%;
+
+    footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 12px;
+    }
   }
+
+
 }

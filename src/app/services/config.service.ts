@@ -23,7 +23,7 @@ export class HttpService {
     return firstValueFrom(this.http.post(`${this.baseUrl}/${url}`, body)) as Promise<T>;
   }
 
-  async put<T>(endpoint: string, body: T): Promise<T> {
+  async put<T>(endpoint: string, body?: T): Promise<T> {
     const url = this.sanitazeEndpoint(endpoint);
     return firstValueFrom(this.http.put(`${this.baseUrl}/${url}`, body)) as Promise<T>;
   }

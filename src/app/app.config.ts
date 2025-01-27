@@ -6,6 +6,7 @@ import { provideStore } from '@ngrx/store';
 import { routes } from './app.routes';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { userReducer } from './store/user/user.reducer';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,6 @@ export const appConfig: ApplicationConfig = {
         authInterceptor,
       ])
     ),
-    provideStore({ user: userReducer }),
+    provideStore({ user: userReducer }), provideAnimationsAsync(), provideAnimationsAsync(),
   ],
 };

@@ -1,4 +1,4 @@
-@import "../../styles/global";
+@use "../../styles/global" as *;
 
 :host {
   display: flex;
@@ -81,7 +81,4 @@
       }
     }
   }
-}
-.mat-mdc-form-field-infix  {
-  height: 48px !important;
 }

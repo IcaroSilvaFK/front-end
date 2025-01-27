@@ -1,0 +1,45 @@
+<li [class]="taskStatus + ' container'">
+  @if(isBeforeNow) {
+  <span matBadge="Atrasada" matBadgeColor="warn"></span>
+  }
+  <header>
+    <time>{{ formatDate(task.endDate) }}</time>
+
+    <span>{{ translateStatus(taskStatus) }}</span>
+  </header>
+  <div>
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+  </div>
+  <footer>
+    <button mat-icon-button (click)="onEditTask()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button [disabled]="isLoadingDelete" (click)="onDeleteTask(task.id)">
+      @if(!isLoadingDelete){
+      <mat-icon>delete</mat-icon>
+      }@else {
+      <mat-spinner diameter="20"></mat-spinner>
+      }
+    </button>
+    @if(taskStatus === "inProgress") {
+    <button mat-icon-button matTooltip="Done" [matTooltipPosition]="'after'" (click)="updateStatus(task.id, 'done')">
+      @if(!isLoadingEditStatus) {
+      <mat-icon>done</mat-icon>
+      }@else{
+      <mat-spinner diameter="20"></mat-spinner>
+      }
+    </button>
+    }
+    @if(taskStatus === "todo") {
+    <button mat-icon-button matTooltip="Em progresso" [matTooltipPosition]="'after'"
+      (click)="updateStatus(task.id, 'inProgress')">
+      @if(!isLoadingEditStatus) {
+      <mat-icon>hourglass_empty</mat-icon>
+      }@else{
+      <mat-spinner diameter="20"></mat-spinner>
+      }
+    </button>
+    }
+  </footer>
+</li>

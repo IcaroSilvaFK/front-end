@@ -1,32 +1,44 @@
-<div class="layer">
-  <div class="content">
+<div class="layer" (click)="dismiss()">
+  <div class="content" (click)="stopPropagation($event)">
     <header>
       <h2>Adicionar tarefa</h2>
+      <button mat-icon-button (click)="dismiss()">
+        <mat-icon>close</mat-icon>
+      </button>
     </header>
-    <form action="">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline">
         <mat-label>Titulo</mat-label>
-        <input matInput placeholder="Ex. Estudar Angular" />
+        <input matInput formControlName="title" placeholder="Ex. Comer algo" />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Descrição</mat-label>
-        <textarea matInput placeholder="Ex. Estudar Angular"></textarea>
+        <textarea matInput formControlName="description" placeholder="Ex. Comer em qualquer lugar"></textarea>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Data</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input matInput formControlName="endDate" [min]="today" [matDatepicker]="picker">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>Favorite food</mat-label>
-        <mat-select>
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
           @for (item of status; track item) {
           <mat-option [value]="item.value">{{item.viewValue}}</mat-option>
           }
         </mat-select>
       </mat-form-field>
-      <button mat-flat-button class="primary">Salvar</button>
+      <footer>
+        <button mat-flat-button type="button" (click)="dismiss()" class="danger">Cancelar</button>
+        <button mat-flat-button [disabled]="isLoadingSubmit || !form.valid" class="primary" type="submit">
+          @if(!isLoadingSubmit){
+          Salvar
+          }@else {
+          <mat-spinner diameter="20"></mat-spinner>
+          }
+        </button>
+      </footer>
     </form>
   </div>
 </div>

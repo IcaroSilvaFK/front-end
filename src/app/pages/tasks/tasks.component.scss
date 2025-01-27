@@ -1,4 +1,4 @@
-@import "../../styles/global";
+@use "../../styles/global" as *;
 
 .header {
   display: flex;
@@ -23,9 +23,10 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  height: 100%;
+  min-height: 100dvh;
   width: 100%;
   background: $gray-600;
+  padding-bottom: 22px;
   >div{
     max-width: 60%;
     width: 100%;
@@ -63,7 +64,19 @@ main {
         color: $gray-100;
         font-size: 1.125rem;
         font-weight: bold;
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
       }
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
     }
   }
 }
@@ -80,7 +93,11 @@ main {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 12px;
+
+  font-size: 0.875rem;
+
 
   >span:first-child {
     color: $blue;
@@ -88,6 +105,7 @@ main {
   }
 
   >span:last-child {
+    display: block;
     padding: 4px 8px;
     background: $gray-400;
     border-radius: 50%;
@@ -98,5 +116,26 @@ main {
   >span:first-child {
     color: $purple;
   }
+  > span:last-child {
+    padding: 8px;
+  }
+}
 
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  strong {
+    font-size: 1.125rem;
+    color: $gray-300;
+  }
+
+  span {
+    font-size: 0.875rem;
+    color: $gray-300;
+  }
 }

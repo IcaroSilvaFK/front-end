@@ -1,0 +1,14 @@
+// src/styles/theme.scss
+@use "./global" as *;
+@use '@angular/material' as mat;
+
+// Definir as cores para o tema escuro
+$primary: mat.define-palette($blue);
+$accent: mat.define-palette($blue-dark, A200, A100, A400);
+$warn: mat.define-palette($danger);
+
+// Criar um tema escuro
+$dark-theme: mat.dark-theme($primary, $accent, $warn);
+
+// Aplicar o tema em todos os componentes
+@include mat.all-component-themes($dark-theme);

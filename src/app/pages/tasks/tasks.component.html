@@ -5,9 +5,9 @@
   </header>
 
   <div>
-    <form action="">
-      <input type="text" placeholder="Adicione uma nova tarefa" [(ngModel)]="titleTask" />
-      <button>
+    <form (ngSubmit)="onSubmit()">
+      <input type="text" name="title" placeholder="Adicione uma nova tarefa" [(ngModel)]="titleTask" />
+      <button [disabled]="!titleTask" type="submit">
         Criar
         <mat-icon>add</mat-icon>
       </button>
@@ -16,13 +16,34 @@
     <div class="header__counter">
       <div class="badge">
         <span>Tarefas criadas</span>
-        <span>0</span>
+        <span>{{ tasks.length }}</span>
       </div>
       <div class="badge badge--purple">
         <span>Concluídas</span>
-        <span>0</span>
+        <span>{{ doneTasks }} de {{ tasks.length }}</span>
       </div>
     </div>
+
+
+    @if(tasks.length > 0) {
+    <ul>
+      @for (task of tasks; track task.id) {
+      <app-task-line [task]="task" (onDelete)="onDeleteTask(task.id)" (onEdit)="onEditTask(task.id)"></app-task-line>
+      }
+    </ul>
+    }@else {
+    <div class="empty">
+      <img src="/assets/images/clipboard.png" />
+      <strong>Você ainda não tem tarefas cadastradas</strong>
+      <span>Crie tarefas e organize seus itens a fazer.</span>
+    </div>
+    }
+
+
+
   </div>
 </main>
-<app-modal-new-task></app-modal-new-task>
+
+<app-modal-new-task *ngIf="modalIsOpen" [titleTask]="titleTask" (whenItemCreated)="createNewTask($event)"
+  (close)="handleCloseModal()" (whenItemUpdated)="updateTask($event)" [taskId]="editTask?.id"
+  [task]="editTask"></app-modal-new-task>
