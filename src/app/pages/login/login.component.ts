@@ -16,21 +16,20 @@ import { FILL_USER } from '../../store/user/user.actions';
 import { UserState } from '../../store/user/user.reducer';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterLink
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-login',
+    imports: [
+        MatButtonModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterLink
+    ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
   readonly email = new FormControl('', [Validators.required, Validators.email]);

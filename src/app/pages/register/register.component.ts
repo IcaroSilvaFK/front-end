@@ -16,20 +16,19 @@ import { UserState } from '../../store/user/user.reducer';
 
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterLink,
-  ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+    selector: 'app-register',
+    imports: [
+        MatButtonModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterLink,
+    ],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   readonly form = new FormGroup({

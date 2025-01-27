@@ -8,16 +8,15 @@ import { TasksService } from '../../services/tasks.service';
 import { UserState } from '../../store/user/user.reducer';
 
 @Component({
-  selector: 'app-tasks',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    FormsModule,
-    ModalNewTaskComponent
-  ],
-  templateUrl: './tasks.component.html',
-  styleUrl: './tasks.component.scss'
+    selector: 'app-tasks',
+    imports: [
+        MatButtonModule,
+        MatIconModule,
+        FormsModule,
+        ModalNewTaskComponent
+    ],
+    templateUrl: './tasks.component.html',
+    styleUrl: './tasks.component.scss'
 })
 export class TasksComponent implements OnInit {
   private tasks: any = []

@@ -16,23 +16,21 @@ interface Status {
 
 
 @Component({
-  selector: 'app-modal-new-task',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-
-  ],
-  templateUrl: './modal-new-task.component.html',
-  styleUrl: './modal-new-task.component.scss'
+    selector: 'app-modal-new-task',
+    imports: [
+        MatButtonModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+    ],
+    templateUrl: './modal-new-task.component.html',
+    styleUrl: './modal-new-task.component.scss'
 })
 
 export class ModalNewTaskComponent {
