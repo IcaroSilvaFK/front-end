@@ -1,27 +1,40 @@
-# FrontEnd
+# Projeto front end
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+<p>
+  Quero novamente salientar que devido ao prazo não priorizei os teste units,integrations ou e2e
+</p>
 
-## Development server
+## Como rodar o projeto
+```sh 
+  docker build -t angular-app . 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+  docker run -p 3000:3000 angular-app
+```
 
-## Code scaffolding
+## Com node
+ <p>
+  Existe um arquivo na raiz do projeto chamado .nvmrc se esitver com o node version manager instalado na maquina execute o comando
+  ```sh
+    nvm use
+  ```
+  E o node mudará a versão.
+ </p>
+<p>
+  Execute o seguinte comando depois de instalar o node js.
+  ```sh
+    npm i --silent
+  ```
+</p>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+[https://angular.dev/overview](Angular)
+<p>
+  Instale o angular em sequencia execute o seguinte comando.
+  ```sh
+    ng serve
+  ```
+</p>
 
-## Build
+[https://github.com/nvm-sh/nvm](Nvm)
+<br/>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+[https://nodejs.org/pt](Node)
