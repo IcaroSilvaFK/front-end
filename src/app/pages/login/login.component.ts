@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { HotToastService } from '@ngxpert/hot-toast';
 import { merge } from 'rxjs';
 import { LOCALSTORAGE_KEYS } from '../../common/constants';
 import { AuthService } from '../../services/auth.service';
@@ -44,7 +45,9 @@ export class LoginComponent {
     private readonly store: Store<{ user: UserState }>,
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly persistenceService: PersistenceService
+    private readonly persistenceService: PersistenceService,
+    private toast: HotToastService,
+    private cdr: ChangeDetectorRef
   ) {
     merge(this.email.statusChanges, this.email.valueChanges)
       .pipe(takeUntilDestroyed())
@@ -66,13 +69,18 @@ export class LoginComponent {
 
   async onSubmit() {
     if (this.email.invalid) return
-
-    this.isLoading = true
-    const sigin = await this.authService.signIn({ email: this.email.value || "", password: this.password.value || "" })
-    this.persistenceService.set(LOCALSTORAGE_KEYS.TOKEN, sigin.accessToken)
-    this.store.dispatch(FILL_USER({ user: sigin.user }))
-    this.isLoading = false
-    this.router.navigate(["/tasks"])
+    try {
+      this.isLoading = true
+      const sigin = await this.authService.signIn({ email: this.email.value || "", password: this.password.value || "" })
+      this.persistenceService.set(LOCALSTORAGE_KEYS.TOKEN, sigin.accessToken)
+      this.store.dispatch(FILL_USER({ user: sigin.user }))
+      this.router.navigate(["/tasks"])
+    } catch (err) {
+      this.toast.error("Email ou senha incorretos")
+    } finally {
+      this.isLoading = false
+      this.cdr.detectChanges()
+    }
   }
 
 }

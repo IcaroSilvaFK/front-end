@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { HotToastService } from '@ngxpert/hot-toast';
 import { ModalNewTaskComponent } from '../../components/modal-new-task/modal-new-task.component';
 import { TaskLineComponent } from '../../components/task-line/task-line.component';
 import { TaskOutput, TasksService } from '../../services/tasks.service';
@@ -37,17 +38,25 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private readonly tasksService: TasksService,
+    private toast: HotToastService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.isLoading = true
-    const result = await this.tasksService.getMeTasks()
-    const totalDoneTasks = await this.tasksService.countDoneTasks()
-    this.tasks = result?.tasks || []
-    this.quantityPages = result?.quantityPages
-    this.totalTasks = result?.totalTasks || 0
-    this.doneTasks = totalDoneTasks?.count || 0
-    this.isLoading = false
+    try {
+      this.isLoading = true
+      const result = await this.tasksService.getMeTasks()
+      const totalDoneTasks = await this.tasksService.countDoneTasks()
+      this.tasks = result?.tasks || []
+      this.quantityPages = result?.quantityPages
+      this.totalTasks = result?.totalTasks || 0
+      this.doneTasks = totalDoneTasks?.count || 0
+    } catch (err) {
+      this.toast.error("Tivemos um problema ao buscar suas tarefas, tente novamente")
+    } finally {
+      this.isLoading = false
+
+    }
   }
 
 
@@ -81,18 +90,24 @@ export class TasksComponent implements OnInit {
   }
 
   async changeFilterType(type: string) {
-    this.isLoading = true
-    this.filterType = type
-    const result = await this.tasksService.getMeTasks(this.page, type)
-    this.tasks = result?.tasks || []
-    this.totalTasks = result?.totalTasks
-    this.quantityPages = result?.quantityPages
-    this.isLoading = false
+    try {
+
+      this.isLoading = true
+      this.filterType = type
+      const result = await this.tasksService.getMeTasks(this.page, type)
+      this.tasks = result?.tasks || []
+      this.totalTasks = result?.totalTasks
+      this.quantityPages = result?.quantityPages
+    } catch (err) {
+      this.toast.error("Tivemos um problema ao buscar suas tarefas, tente novamente")
+    } finally {
+      this.isLoading = false
+      this.cdr.detectChanges()
+    }
   }
 
   async changePage(page: number) {
     try {
-
       this.isLoading = true
       this.page = page
       const result = await this.tasksService.getMeTasks(this.page, this.filterType)
@@ -100,9 +115,10 @@ export class TasksComponent implements OnInit {
       this.totalTasks = result?.totalTasks
       this.quantityPages = result?.quantityPages
     } catch (err) {
-      console.log(err)
+      this.toast.error("Tivemos um problema ao buscar suas tarefas, tente novamente")
     } finally {
       this.isLoading = false
+      this.cdr.detectChanges()
     }
   }
 }

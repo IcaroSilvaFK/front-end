@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { HotToastService } from '@ngxpert/hot-toast';
 import { LOCALSTORAGE_KEYS } from '../../common/constants';
 import { AuthService } from '../../services/auth.service';
 import { PersistenceService } from '../../services/persistence.service';
@@ -45,7 +46,9 @@ export class RegisterComponent {
     private readonly store: Store<{ user: UserState }>,
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly persistenceService: PersistenceService
+    private readonly persistenceService: PersistenceService,
+    private toast: HotToastService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   errorMessage = signal('');
@@ -57,17 +60,24 @@ export class RegisterComponent {
   }
   async onSubmit() {
     if (this.form.invalid) return
-    this.isLoading = true
-    await this.userService.createUser({
-      email: this.form.value.email || "",
-      password: this.form.value.password || "",
-      username: this.form.value.username || ""
-    });
+    try {
 
-    const sigin = await this.authService.signIn({ email: this.form.value.email || "", password: this.form.value.password || "" })
-    this.persistenceService.set(LOCALSTORAGE_KEYS.TOKEN, sigin.accessToken)
-    this.store.dispatch(FILL_USER({ user: sigin.user }))
-    this.isLoading = false
-    this.router.navigate(["/tasks"])
+      this.isLoading = true
+      await this.userService.createUser({
+        email: this.form.value.email || "",
+        password: this.form.value.password || "",
+        username: this.form.value.username || ""
+      });
+
+      const sigin = await this.authService.signIn({ email: this.form.value.email || "", password: this.form.value.password || "" })
+      this.persistenceService.set(LOCALSTORAGE_KEYS.TOKEN, sigin.accessToken)
+      this.store.dispatch(FILL_USER({ user: sigin.user }))
+      this.router.navigate(["/tasks"])
+    } catch (err) {
+      this.toast.error("Tivemos um problema ao criar sua conta, tente novamente")
+    } finally {
+      this.isLoading = false
+      this.cdr.detectChanges()
+    }
   }
 }

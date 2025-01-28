@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { HotToastService } from '@ngxpert/hot-toast';
 import { TaskOutput, TasksService } from '../../services/tasks.service';
 import { minDateValidator } from '../../validators/min-date.validator';
 
@@ -62,10 +63,10 @@ export class ModalNewTaskComponent implements OnChanges {
   isLoadingSubmit = false
 
   constructor(
-    private readonly tasksService: TasksService
-  ) {
-
-  }
+    private readonly tasksService: TasksService,
+    private toast: HotToastService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['titleTask']) {
@@ -93,34 +94,41 @@ export class ModalNewTaskComponent implements OnChanges {
   }
 
   async onSubmit() {
-    if (!this.form.valid) return
-    this.isLoadingSubmit = true
-    if (this.taskId) {
-      await this.tasksService.updateTask({
-        title: this.form.value.title || "",
-        description: this.form.value.description || "",
-        endDate: this.form.value.endDate || "",
-        taskStatus: this.form.value.status || "",
-      }, this.taskId,)
-      this.whenItemUpdated.emit({
-        title: this.form.value.title || "",
-        description: this.form.value.description || "",
-        endDate: this.form.value.endDate || "",
-        status: this.form.value.status || "",
-        id: this.taskId
-      })
-    }
-    if (!this.taskId) {
-      const result = await this.tasksService.createTask({
-        title: this.form.value.title || "",
-        description: this.form.value.description || "",
-        endDate: this.form.value.endDate || "",
-        taskStatus: this.form.value.status || "",
-      })
-      this.whenItemCreated.emit(result)
-    }
+    try {
 
-    this.form.reset()
-    this.isLoadingSubmit = false
+      if (!this.form.valid) return
+      this.isLoadingSubmit = true
+      if (this.taskId) {
+        await this.tasksService.updateTask({
+          title: this.form.value.title || "",
+          description: this.form.value.description || "",
+          endDate: this.form.value.endDate || "",
+          taskStatus: this.form.value.status || "",
+        }, this.taskId,)
+        this.whenItemUpdated.emit({
+          title: this.form.value.title || "",
+          description: this.form.value.description || "",
+          endDate: this.form.value.endDate || "",
+          status: this.form.value.status || "",
+          id: this.taskId
+        })
+      }
+      if (!this.taskId) {
+        const result = await this.tasksService.createTask({
+          title: this.form.value.title || "",
+          description: this.form.value.description || "",
+          endDate: this.form.value.endDate || "",
+          taskStatus: this.form.value.status || "",
+        })
+        this.whenItemCreated.emit(result)
+      }
+
+      this.form.reset()
+    } catch (err) {
+      this.toast.error("Tivemos um problema ao salvar sua tarefa, tente novamente")
+    } finally {
+      this.isLoadingSubmit = false
+      this.cdr.detectChanges()
+    }
   }
 }
